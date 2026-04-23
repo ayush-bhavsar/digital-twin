@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Digital Twin of Yourself | Methodology{% endblock %}
+
+{% block content %}
+<section class="page-hero container reveal">
+    <span class="eyebrow">Methodology</span>
+    <h1>How the Digital Twin is built</h1>
+    <p>The system collects responses, assigns predefined scores to each option, and translates them into a compact behavioral profile.</p>
+</section>
+
+<section class="container section-pad">
+    <div class="timeline">
+        <div class="timeline-step glass-card reveal">
+            <span>Step 1</span>
+            <h3>Data capture</h3>
+            <p>Users answer 25 exact questions across habits, values, risk, social behavior, and decision making.</p>
+        </div>
+        <div class="timeline-step glass-card reveal">
+            <span>Step 2</span>
+            <h3>Weighted scoring</h3>
+            <p>Radio options carry predefined scores, while 1–10 sliders are mapped directly onto behavioral dimensions.</p>
+        </div>
+        <div class="timeline-step glass-card reveal">
+            <span>Step 3</span>
+            <h3>Dimension synthesis</h3>
+            <p>The backend calculates introversion versus extroversion, risk appetite, logic orientation, and planning style.</p>
+        </div>
+        <div class="timeline-step glass-card reveal">
+            <span>Step 4</span>
+            <h3>Prediction layer</h3>
+            <p>The profile engine converts the scores into a personality summary and scenario-based recommendations.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Digital Twin of Yourself{% endblock %}</title>
+    <meta name="description" content="Digital Twin of Yourself - a futuristic decision-based virtual modeling system.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body class="page-{{ active_page or 'home' }}">
+    <div class="ambient ambient-1"></div>
+    <div class="ambient ambient-2"></div>
+    <div class="ambient ambient-3"></div>
+
+    <div class="loader-overlay" id="loaderOverlay" aria-hidden="true">
+        <div class="loader-panel glass-card">
+            <div class="loader-ring"></div>
+            <p>Synchronizing your Digital Twin...</p>
+        </div>
+    </div>
+
+    <header class="site-header">
+        <div class="container nav-shell glass-card">
+            <a class="brand" href="{{ url_for('home') }}">
+                <span class="brand-mark">DT</span>
+                <span class="brand-copy">
+                    <strong>Digital Twin</strong>
+                    <small>Decision Modeling System</small>
+                </span>
+            </a>
+
+            <button class="nav-toggle" type="button" aria-label="Toggle navigation" data-nav-toggle>
+                <span></span><span></span><span></span>
+            </button>
+
+            <nav class="site-nav" data-nav-menu>
+                <a class="{% if active_page == 'home' %}active{% endif %}" href="{{ url_for('home') }}">Home</a>
+                <a class="{% if active_page == 'overview' %}active{% endif %}" href="{{ url_for('overview') }}">Overview</a>
+                <a class="{% if active_page == 'methodology' %}active{% endif %}" href="{{ url_for('methodology') }}">Methodology</a>
+                <a class="{% if active_page == 'assessment' %}active{% endif %}" href="{{ url_for('assessment') }}">Assessment</a>
+                <a class="{% if active_page == 'dashboard' %}active{% endif %}" href="{{ url_for('dashboard') }}">Dashboard</a>
+                <a class="{% if active_page == 'scenarios' %}active{% endif %}" href="{{ url_for('scenarios') }}">Scenarios</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <section class="container flash-stack">
+                    {% for category, message in messages %}
+                        <div class="flash-message {{ category }} glass-card">{{ message }}</div>
+                    {% endfor %}
+                </section>
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div>
+                <div class="footer-brand">DT</div>
+                <p>Digital Twin of Yourself is designed as a futuristic behavioral modeling experience for research, reflection, and presentation.</p>
+            </div>
+            <div>
+                <h4>Explore</h4>
+                <a href="{{ url_for('overview') }}">Concept overview</a>
+                <a href="{{ url_for('methodology') }}">Scoring methodology</a>
+                <a href="{{ url_for('assessment') }}">Start assessment</a>
+            </div>
+            <div>
+                <h4>Project</h4>
+                <a href="{{ url_for('dashboard') }}">Dashboard</a>
+                <a href="{{ url_for('scenarios') }}">Predictive scenarios</a>
+                <a href="{{ url_for('reset') }}">Reset profile</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

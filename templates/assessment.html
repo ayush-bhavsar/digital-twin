@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block title %}Digital Twin of Yourself | Assessment{% endblock %}
+
+{% block content %}
+<section class="page-hero container reveal">
+    <span class="eyebrow">Assessment</span>
+    <h1>Build your Digital Twin profile</h1>
+    <p>Answer each section carefully. Progress updates in real time, and the dashboard will unlock once every question is completed.</p>
+</section>
+
+<section class="container assessment-shell">
+    <div class="assessment-toolbar glass-card reveal">
+        <div>
+            <strong>Progress</strong>
+            <span id="answeredCount">0/25 answered</span>
+        </div>
+        <div class="progress-track">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="toolbar-actions">
+            <a class="ghost-btn" href="{{ url_for('reset') }}">Reset</a>
+        </div>
+    </div>
+
+    <form class="assessment-form" method="post" action="{{ url_for('submit_assessment') }}" data-assessment-form>
+        {% for section in sections %}
+            <section class="section-block glass-card reveal">
+                <div class="section-header">
+                    <span class="section-index">Section {{ loop.index }}</span>
+                    <h2>{{ section.title }}</h2>
+                </div>
+
+                <div class="question-stack">
+                    {% for question in section.questions %}
+                        <article class="question-card" data-question-card>
+                            <div class="question-head">
+                                <span class="question-number">{{ question.id }}</span>
+                                <h3>{{ question.text }}</h3>
+                            </div>
+
+                            {% if question.type == 'scale' %}
+                                <div class="scale-wrap">
+                                    <div class="scale-labels">
+                                        <span>{{ question.left }}</span>
+                                        <span class="scale-value" data-scale-value>5</span>
+                                        <span>{{ question.right }}</span>
+                                    </div>
+                                    <input
+                                        type="range"
+                                        min="{{ question.min }}"
+                                        max="{{ question.max }}"
+                                        value="{{ responses.get('q' ~ question.id, 5) }}"
+                                        name="q{{ question.id }}"
+                                        class="scale-input"
+                                        data-scale-input
+                                    >
+                                </div>
+                            {% else %}
+                                <div class="option-grid">
+                                    {% for option in question.options %}
+                                        <label class="option-chip">
+                                            <input type="radio" name="q{{ question.id }}" value="{{ option.label }}" {% if responses.get('q' ~ question.id) == option.label %}checked{% endif %} required>
+                                            <span>{{ option.label }}</span>
+                                        </label>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </article>
+                    {% endfor %}
+                </div>
+            </section>
+        {% endfor %}
+
+        <div class="assessment-actions reveal">
+            <button class="primary-btn large-btn pulse" type="submit">Generate Digital Twin</button>
+            <a class="secondary-btn" href="{{ url_for('overview') }}">Review concept</a>
+        </div>
+    </form>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/assessment.js') }}"></script>
+{% endblock %}

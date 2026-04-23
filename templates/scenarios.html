@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Digital Twin of Yourself | Scenarios{% endblock %}
+
+{% block content %}
+<section class="page-hero container reveal">
+    <span class="eyebrow">Scenarios</span>
+    <h1>Predictive scenarios based on your answers</h1>
+    <p>These outcomes are not absolute predictions. They are narrative simulations derived from your behavioral profile.</p>
+</section>
+
+<section class="container section-pad scenario-grid">
+    {% for scenario in profile.scenarios %}
+        <article class="glass-card scenario-card reveal">
+            <span class="scenario-kicker">Scenario {{ loop.index }}</span>
+            <h3>{{ scenario.title }}</h3>
+            <p>{{ scenario.body }}</p>
+        </article>
+    {% endfor %}
+</section>
+{% endblock %}

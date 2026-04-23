@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}Digital Twin of Yourself | Home{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="container hero-grid">
+        <div class="hero-copy reveal">
+            <div class="hero-badge"><i class="fa-solid fa-wand-magic-sparkles"></i> Virtual Behavioral Modeling</div>
+            <h1>Digital Twin of Yourself</h1>
+            <p class="hero-tagline">Understand Your Decisions. Predict Your Future.</p>
+            <p class="hero-text">Explore a polished multi-page experience that translates habits, values, risk tolerance, social behavior, and decision style into a futuristic Digital Twin profile.</p>
+            <div class="hero-actions">
+                <a class="primary-btn pulse" href="{{ url_for('assessment') }}">Start Assessment</a>
+                <a class="secondary-btn" href="{{ url_for('overview') }}">Explore Concept</a>
+            </div>
+            <div class="hero-stats">
+                <div class="mini-stat glass-card">
+                    <strong>25</strong>
+                    <span>Assessment Questions</span>
+                </div>
+                <div class="mini-stat glass-card">
+                    <strong>4</strong>
+                    <span>Core Behavioral Dimensions</span>
+                </div>
+                <div class="mini-stat glass-card">
+                    <strong>100%</strong>
+                    <span>Responsive Premium UI</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-visual reveal">
+            <div class="orb orb-a"></div>
+            <div class="orb orb-b"></div>
+            <div class="glass-card twin-panel">
+                <div class="twin-logo">DT</div>
+                <div class="twin-lines">
+                    <span></span><span></span><span></span><span></span>
+                </div>
+                <div class="twin-metrics">
+                    <div>
+                        <strong>Personality</strong>
+                        <span>Mapped in real time</span>
+                    </div>
+                    <div>
+                        <strong>Scenarios</strong>
+                        <span>Predictive simulations</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container section-pad">
+    <div class="section-heading reveal">
+        <span class="eyebrow">Why this project stands out</span>
+        <h2>Futuristic, intuitive, and presentation-ready.</h2>
+    </div>
+    <div class="feature-grid">
+        <article class="glass-card feature-card reveal">
+            <i class="fa-solid fa-layer-group"></i>
+            <h3>Multi-page architecture</h3>
+            <p>Move through concept, methodology, assessment, dashboard, and scenario views without losing visual continuity.</p>
+        </article>
+        <article class="glass-card feature-card reveal">
+            <i class="fa-solid fa-chart-line"></i>
+            <h3>Behavioral scoring</h3>
+            <p>Every answer contributes to introversion, risk appetite, logic orientation, and planning style.</p>
+        </article>
+        <article class="glass-card feature-card reveal">
+            <i class="fa-solid fa-rocket"></i>
+            <h3>Premium UI motion</h3>
+            <p>Glassmorphism cards, neon gradients, soft motion, and polished transitions create a top-grade visual identity.</p>
+        </article>
+    </div>
+</section>
+{% endblock %}

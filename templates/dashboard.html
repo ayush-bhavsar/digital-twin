@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Digital Twin of Yourself | Dashboard{% endblock %}
+
+{% block content %}
+<section class="page-hero container reveal">
+    <span class="eyebrow">Dashboard</span>
+    <h1>Your Digital Twin results</h1>
+    <p>{{ profile.summary }}</p>
+</section>
+
+<section class="container section-pad dashboard-grid">
+    <article class="glass-card result-panel reveal">
+        <h2>{{ profile.archetype }}</h2>
+        <p class="result-copy">A refined behavioral identity inferred from your answers.</p>
+        <div class="result-tags">
+            <span>{{ profile.labels.introversion_extroversion }}</span>
+            <span>{{ profile.labels.risk_level }}</span>
+            <span>{{ profile.labels.logical_emotional }}</span>
+            <span>{{ profile.labels.planning_spontaneity }}</span>
+        </div>
+        <p class="recommendation">{{ profile.recommendation }}</p>
+    </article>
+
+    <article class="glass-card chart-panel reveal">
+        <h3>Behavioral profile</h3>
+        <canvas id="radarChart" height="280"></canvas>
+    </article>
+
+    <article class="glass-card chart-panel reveal">
+        <h3>Core dimensions</h3>
+        <canvas id="barChart" height="280"></canvas>
+    </article>
+</section>
+
+<section class="container section-pad metrics-grid">
+    {% for key, value in profile.scores.items() %}
+        <article class="glass-card metric-card reveal">
+            <span>{{ key.replace('_', ' ') }}</span>
+            <strong>{{ value|round(0) }}</strong>
+        </article>
+    {% endfor %}
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script id="profile-data" type="application/json">{{ profile|tojson }}</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}
