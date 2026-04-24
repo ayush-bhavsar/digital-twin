@@ -1,14 +1,19 @@
 from __future__ import annotations
 
+import os
 from collections import defaultdict
 from typing import Any
 
+from dotenv import load_dotenv
 from flask import Flask, flash, redirect, render_template, request, session, url_for
 
 
+load_dotenv()
+
+
 app = Flask(__name__)
-app.secret_key = "digital-twin-demo-secret-key"
-app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
+app.secret_key = os.getenv("SECRET_KEY", "digital-twin-demo-secret-key")
+app.config["SESSION_COOKIE_SAMESITE"] = os.getenv("SESSION_COOKIE_SAMESITE", "Lax")
 
 
 DIMENSIONS = {
@@ -525,4 +530,10 @@ def reset() -> str:
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    debug = os.getenv("FLASK_DEBUG", "1").strip().lower() in {"1", "true", "yes", "on"}
+    try:
+        port = int(os.getenv("PORT", "5000"))
+    except ValueError:
+        port = 5000
+
+    app.run(debug=debug, port=port)
